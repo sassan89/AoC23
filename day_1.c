@@ -43,23 +43,19 @@ int main() {
   // Open the file containing the calibration values
   fp = fopen("calibration.txt", "r");
 
-  if (fp == NULL){
+  if (fp == NULL) {
     exit(EXIT_FAILURE);
   }
 
   size_t calibration_value = 0;
 
-  size_t line_no = 1;
-
   // Extract from each line the calibration value
-  while(fgets(buffer, buffer_size, fp)){
+  while (fgets(buffer, buffer_size, fp)) {
     calibration_value += get_single_calibration_value(buffer, strlen(buffer));
-    printf("%ld: temp val = %ld\n", line_no, calibration_value);
-    line_no++;
   }
 
   printf("Calibration value = %ld\n", calibration_value);
-  
+
   fclose(fp);
 
   exit(EXIT_SUCCESS);
