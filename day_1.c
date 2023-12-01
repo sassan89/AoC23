@@ -13,11 +13,13 @@ size_t get_single_calibration_value(char* line, size_t len) {
 
   for (size_t idx = 0; idx < len; ++idx) {
     if (isdigit(line[idx])) {
-      // atoi() converts until it finds a null char, but since we're passing a whole string,
-      // we have to construct a temporary string with just the char and the terminator
+      // atoi() converts until it finds a null terminator, but since we're
+      // passing a whole string, we have to construct a temporary string with
+      // just the char and the null terminator
       char tmp[2] = {line[idx], '\0'};
       uint16_t digit = atoi(tmp);
 
+      // If only the first digit is set, the last digit equals the first
       if (!first_digit_set) {
         first_digit = digit;
         last_digit = digit;
@@ -27,8 +29,6 @@ size_t get_single_calibration_value(char* line, size_t len) {
       }
     }
   }
-
-  printf("first digit = %d, last_digit = %d\n", first_digit, last_digit);
 
   return first_digit * 10 + last_digit;
 }
